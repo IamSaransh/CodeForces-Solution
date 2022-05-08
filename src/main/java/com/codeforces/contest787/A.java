@@ -12,9 +12,7 @@ public class A {
                 l[i] = sc.nextInt();
             }
             boolean ans = false;
-            if(l[0]+l[1]+l[2]>=l[3]+l[4]){
-                int totalComFood=
-            }
+
             if(ans)
                 System.out.println("YES");
             else
