@@ -3,30 +3,29 @@ package com;
 import java.util.*;
 
 class Solution {
-    public int minOperations(int[] nums, int x) {
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(0,0);
-        int prefixSum =0;
-        long arraySum = 0;
-        for(int num: nums) arraySum+=num; // getting sum of array
-        int need = (int)arraySum - x;
-
-
-        int maxLen = -1; // if -1 then we return -1 as ans as no such subarray
-        for(int i=0; i< nums.length;i++){
-            prefixSum+= nums[i];
-            if(map.containsKey(prefixSum - need)){
-                maxLen = Math.max(maxLen, i - map.get(need) +1);
+    public double calculateTax(int[][] brackets, int income) {
+        double tax = 0;
+        int prev = 0;
+        int upperbound;
+        for(int []temp: brackets){
+            if(temp[0] <= income){
+                upperbound = temp[0];
+                tax +=  ( (double)(upperbound - prev) * (double)temp[1] )/100;
             }
-            map.put(prefixSum, i);
+            else{
+                upperbound = temp[0];
+                tax +=  ( (double)(Math.min(upperbound, income) - prev) * (double)temp[1] )/100;
+            }
         }
-
-        return maxLen==-1? -1 : nums.length - maxLen;
+        System.out.println();
+        return  tax;
     }
 
 
     public static void main(String[] args) {
         Solution s = new Solution();
+        int [] [] brackets = {{3,50},{7,10},{12,25}};
+        s.calculateTax(brackets, 10);
 
     }
 }
