@@ -1,32 +1,34 @@
-package com.codeforces.contest799;
-
+package com.codeforces.practice.lessthan1300;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 
-public class B {
+
+
+
+
+
+public class PalindromicNumbers {
+
+
+
+
+
+
     public static void main(String[] args) {
-        FastReader fr = new FastReader() ;
-        int TT = fr.nextInt();
-        for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
-            HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
-            }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
-            else
-                System.out.println(set.size()-1);
+        FastReader fs = new FastReader();
+        int TT = fs.nextInt();
+        for (int tt = 0; tt < TT; tt++) {
+            int length = fs.nextInt();
+            int num1 = fs.nextInt();
+
         }
     }
-
-
-
-
 
     private static class FastReader {
         BufferedReader br;

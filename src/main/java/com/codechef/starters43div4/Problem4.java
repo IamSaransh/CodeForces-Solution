@@ -1,31 +1,48 @@
-package com.codeforces.contest799;
+package com.codechef.starters43div4;
+
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
-public class B {
+public class Problem4 {
     public static void main(String[] args) {
         FastReader fr = new FastReader() ;
         int TT = fr.nextInt();
         for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
-            HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
+            int N = fr.nextInt();
+            int K = fr.nextInt();
+            int [] before =  new int[N];
+            int date;
+            for(int i=0; i<N; i++){
+                date =  (i/5)+1;
+                before[i] = date;
             }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
-            else
-                System.out.println(set.size()-1);
+            int[] after  = new int[N-1];
+            for(int i=0; i<=K-2; i++){
+                after[i] = before[i];
+            }
+            for(int i=K , j = K-1; i<N; i++, j++){
+                after[j] = before[i];
+            }
+//            for(int x: before)
+//                System.out.print(x + " ");
+//            System.out.println();
+//            for(int x: after)
+//                System.out.print(x + " ");
+//            System.out.println("\n---------------------------------");
+            int count = 0;
+            for(int i=0; i<N-1; i++){
+                if(before[i] != after[i]){
+                    count++;
+                }
+            }
+
+            System.out.println(count);
         }
     }
-
-
-
 
 
     private static class FastReader {
@@ -77,5 +94,4 @@ public class B {
             return str;
         }
     }
-
 }

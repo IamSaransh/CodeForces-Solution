@@ -1,31 +1,55 @@
-package com.codeforces.contest799;
+package com.codechef.starters43div4;
 
+
+
+import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.sql.SQLOutput;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.StringTokenizer;
+//gcd
+public class Problem6 {
 
-public class B {
+    static int gcd(int a, int b)
+    {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
+    static int lcm(int a, int b)
+    {
+        return (a / gcd(a, b)) * b;
+    }
+    static int fx(int a, int b){
+        return lcm(a,b) + gcd(a,b);
+    }
+
     public static void main(String[] args) {
         FastReader fr = new FastReader() ;
         int TT = fr.nextInt();
         for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
+            int n = fr.nextInt();
             HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
+            int i = n-1; int j = 1;
+            int minfx = Integer.MAX_VALUE;
+            int ans = 0;
+            while(j<n && i>=1){
+
+//                minfx  = Math.min( fx(i,j) , minfx );
+                if(fx(i,j) == n  ){
+                    ans++;
+                    System.out.println(i + " " + j);
+                }
+                i--; j++;
             }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
-            else
-                System.out.println(set.size()-1);
+            System.out.println(ans);
+//            System.out.println("--------------------------");
         }
     }
-
-
-
 
 
     private static class FastReader {
@@ -77,5 +101,4 @@ public class B {
             return str;
         }
     }
-
 }

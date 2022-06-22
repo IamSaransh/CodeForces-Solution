@@ -13,12 +13,19 @@ public class A {
         FastReader fr = new FastReader() ;
         int TT = fr.nextInt();
         for(int tt=0; tt<TT;tt++){
-            int x= fr.nextInt();
+            int a= fr.nextInt();
+            int b= fr.nextInt();
+            int c= fr.nextInt();
+            int d= fr.nextInt();
+            int count = 0;
+            if(b>a)
+                count++;
+            if(c>a)
+                count++;
+            if(d>a)
+                count++;
+            System.out.println(count);
 
-            if(true)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
         }
     }
 

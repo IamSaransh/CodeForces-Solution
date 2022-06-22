@@ -1,32 +1,41 @@
-package com.codeforces.contest799;
-
+package com.codeforces.practice.lessthan1300;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 
-public class B {
+
+
+
+
+
+public class YoungPhysicist {
+
+
+
+
+
+
     public static void main(String[] args) {
-        FastReader fr = new FastReader() ;
-        int TT = fr.nextInt();
-        for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
-            HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
-            }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
-            else
-                System.out.println(set.size()-1);
+        FastReader fs = new FastReader();
+        long X = 0;
+        long Y = 0;
+        long Z = 0;
+        int TT = fs.nextInt();
+        for (int tt = 0; tt < TT; tt++) {
+            long x = fs.nextLong();
+            long y = fs.nextLong();
+            long z = fs.nextLong();
+            X+=x;
+            Y+=y;
+            Z+=z;
         }
+        System.out.println((X==0 && Y==0 && Z==0)? "YES": "NO");
     }
-
-
-
-
 
     private static class FastReader {
         BufferedReader br;

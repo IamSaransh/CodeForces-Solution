@@ -13,7 +13,27 @@ public class C{
         FastReader fr = new FastReader() ;
         int TT = fr.nextInt();
         for(int tt=0; tt<TT;tt++){
-            int x= fr.nextInt();
+            String notUsed = fr.nextLine();
+            char[][] chess= new char[8][8];
+            for(int i=0; i< 8; i++){
+                chess[i] = fr.nextLine().toCharArray();
+            }
+            int[] ans = new int [2];
+            for(int row=1; row< 7 ; row++ ){
+                for(int col=1; col< 7 ; col++){
+                    if(chess[row-1][col-1] == '#' &&
+                            chess[row-1][col+1] == '#' &&
+                            chess[row+1][col+1] == '#' &&
+                            chess[row+1][col-1] == '#'
+                    ){
+                        ans[0] = row+1;
+                        ans [1] = col+1;
+                        break;
+                    }
+                }
+            }
+            System.out.println(ans[0] + " " + ans[1]);
+
 
         }
     }

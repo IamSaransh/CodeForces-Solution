@@ -1,31 +1,61 @@
 package com.codeforces.contest799;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
-public class B {
+public class E {
+
     public static void main(String[] args) {
-        FastReader fr = new FastReader() ;
-        int TT = fr.nextInt();
-        for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
-            HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
+        FastReader fs = new FastReader() ;
+        int TT = fs.nextInt();
+        for(int tt=0; tt<TT;tt++) {
+            int n = fs.nextInt();
+            int k = fs.nextInt();
+            int [] a = new int [n];
+            for(int i =0; i<n; i++){
+                a[i] = fs.nextInt();
             }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
+            int len = lenOfLongSubarr(a, n, k);
+            if(len == Integer.MIN_VALUE)
+                System.out.println(-1);
             else
-                System.out.println(set.size()-1);
+            System.out.println(n-len);
+
         }
     }
+    static int lenOfLongSubarr(int[] arr, int n, int k)
+    {
+        Map<Integer, Integer> mp =
+                new HashMap<>();
+        int sum_value = 0,
+    myMaxLenValue = Integer.MIN_VALUE;
 
 
+        for (int i = 0; i < n; i++) {
+            sum_value += arr[i];
 
+            if (sum_value == k)
+                myMaxLenValue = i + 1;
+
+
+            if (!mp.containsKey(sum_value)) {
+                mp.put(sum_value, i);
+            }
+
+
+            if (mp.containsKey(sum_value - k)) {
+
+                if (myMaxLenValue < (i - mp.get(sum_value - k)))
+                    myMaxLenValue = i - mp.get(sum_value - k);
+            }
+        }
+
+        return myMaxLenValue;
+    }
 
 
     private static class FastReader {
@@ -77,5 +107,4 @@ public class B {
             return str;
         }
     }
-
 }

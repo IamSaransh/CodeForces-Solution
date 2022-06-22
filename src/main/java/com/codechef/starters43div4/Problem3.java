@@ -1,31 +1,44 @@
-package com.codeforces.contest799;
+package com.codechef.starters43div4;
+
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
-public class B {
+public class Problem3 {
     public static void main(String[] args) {
         FastReader fr = new FastReader() ;
         int TT = fr.nextInt();
         for(int tt=0; tt<TT;tt++){
-            int n= fr.nextInt();
-            HashSet<Integer> set = new HashSet<>();
-            for(int i=0; i<n;i++){
-                set.add(fr.nextInt());
+            int N = fr.nextInt();
+            char [] DNA = fr.nextLine().toCharArray();
+            char [] encoded  =  new char[N/2];
+            for(int i=0 , j=0; i<N; i+=2, j++){
+                String seq  = String.valueOf(DNA[i]) + DNA[i + 1];
+//                System.out.println(seq);
+                if(seq.equals("00") )
+                    encoded[j] = 'A';
+                if(seq.equals("01") )
+                    encoded[j] = 'T';
+                if(seq.equals("10") )
+                    encoded[j] = 'C';
+                if(seq.equals("11") )
+                    encoded[j] = 'G';
             }
-            int toDeleteElement = n - set.size();
-            if(toDeleteElement%2==0)
-                System.out.println(set.size());
-            else
-                System.out.println(set.size()-1);
+            for(char c: encoded)
+                System.out.print(c);
+            System.out.println();
+
+            /*
+            00 is replaced with A
+                01 is replaced with T
+                10 is replaced with C
+                11 is replaced with G
+             */
         }
     }
-
-
-
 
 
     private static class FastReader {
@@ -77,5 +90,4 @@ public class B {
             return str;
         }
     }
-
 }
