@@ -1,17 +1,21 @@
-package com;
-
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
+package com.codeforces.practice.lessthan1300;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Template {
-
+public class Parallelepiped {
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
 
-
+        int a1 = in.nextInt();
+        int a2 = in.nextInt();
+        int a3 = in.nextInt();
+        int l = (int) Math.sqrt(a1 * a2/ a3);
+        int b = (int) Math.sqrt(a3 * a1/ a2);
+        int h = (int) Math.sqrt(a2 * a3/ a1);
+        out.printLine(4* (l+b+h));
         out.flush();
         out.close();
     }
@@ -211,4 +215,5 @@ public class Template {
 
 
 }
+
 

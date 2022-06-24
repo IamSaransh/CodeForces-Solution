@@ -1,17 +1,36 @@
-package com;
+package com.codeforces.practice.lessthan1300;
 
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
+import com.Template;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Template {
-
+public class PetrAndBook {
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        ////////////////////////////////////////////////////////////////////////////////////////
+        int n = in.nextInt();
+        int pageLeft = n;
+        int[] arr = in.readArray(7);
+        //Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.
+        // 0      1         2           3           4       5       6
+        int i=0;
+        while(pageLeft > arr[i])
+        {
+            pageLeft-=arr[i];
+            i = (i+1)%7;
+        }
+        out.printLine(i+1);
 
 
+
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
         out.flush();
         out.close();
     }
@@ -19,7 +38,7 @@ public class Template {
 
 
 
-    private static class InputReader {
+    static class InputReader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
@@ -149,7 +168,7 @@ public class Template {
         }
     }
 
-    private static class OutputWriter {
+    static class OutputWriter {
         private final PrintWriter writer;
 
         public OutputWriter(OutputStream outputStream) {
@@ -211,4 +230,5 @@ public class Template {
 
 
 }
+
 

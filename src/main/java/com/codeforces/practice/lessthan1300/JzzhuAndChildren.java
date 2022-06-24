@@ -1,17 +1,33 @@
-package com;
+package com.codeforces.practice.lessthan1300;
 
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
+import com.Template;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 
-public class Template {
+public class JzzhuAndChildren {
 
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int last = 0;
+        double max = 0;
+        for(int i=0; i<n;i++){
+            double num = in.nextDouble();
+            if(Math.ceil(num/m) >= max){
+                last = i;
+                max = Math.ceil(num/m);
+            }
+        }
+        out.printLine(last+1);
 
-
+        /*
+        Template for flushing and closing writer
+         */
         out.flush();
         out.close();
     }
@@ -19,7 +35,7 @@ public class Template {
 
 
 
-    private static class InputReader {
+    static class InputReader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
@@ -149,7 +165,7 @@ public class Template {
         }
     }
 
-    private static class OutputWriter {
+    static class OutputWriter {
         private final PrintWriter writer;
 
         public OutputWriter(OutputStream outputStream) {
@@ -211,4 +227,5 @@ public class Template {
 
 
 }
+
 

@@ -1,16 +1,46 @@
-package com;
+package com.codeforces.practice.lessthan1300;
 
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Template {
-
+public class SupercentralPoint {
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        int n = in.nextInt();
+        int answer = 0;
+        int [][] coord =  new int[n][2];
+        for(int i=0; i<n;i++){
+            coord[i][0] = in.nextInt();
+            coord[i][1] = in.nextInt();
+        }
 
+        for(int i=0; i<n; i++){
+            int curr_x = coord[i][0];
+            int curr_y = coord[i][1];
+            boolean rNeighbour = false;
+            boolean leNeighbour = false;
+            boolean uNeighbour = false;
+            boolean loNeighbour = false;
+            for(int j=0; j<n; j++){
+                int new_x = coord[j][0];
+                int new_y = coord[j][1];
+                //left neighbour
+                if(new_x<curr_x && new_y==curr_y)
+                    leNeighbour=true;
+                if(new_x>curr_x && new_y==curr_y)
+                    rNeighbour=true;
+                if(new_y<curr_y && new_x==curr_x)
+                    loNeighbour=true;
+                if(new_y>curr_y && new_x==curr_x)
+                    uNeighbour=true;
+            }
+            if(rNeighbour && leNeighbour && uNeighbour && loNeighbour)
+                answer++;
+        }
+        out.printLine(answer);
 
         out.flush();
         out.close();
@@ -19,7 +49,7 @@ public class Template {
 
 
 
-    private static class InputReader {
+    static class InputReader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
@@ -149,7 +179,7 @@ public class Template {
         }
     }
 
-    private static class OutputWriter {
+    static class OutputWriter {
         private final PrintWriter writer;
 
         public OutputWriter(OutputStream outputStream) {
@@ -211,4 +241,5 @@ public class Template {
 
 
 }
+
 

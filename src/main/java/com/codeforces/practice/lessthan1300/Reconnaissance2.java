@@ -1,15 +1,41 @@
-package com;
+package com.codeforces.practice.lessthan1300;
 
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
+import java.time.Instant;
 
-public class Template {
 
+public class Reconnaissance2 {
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        int n = in.nextInt();
+        int [] arr = in.readArray(n);
+        int globalMinDiff = Math.abs(arr[0] - arr[n-1]);
+        int index1 = 1;
+        int index2 = n;
+        for(int i=0;i<n-1;i++){
+                int currMinDiff = Math.abs(arr[i+1]-arr[i]);
+                if(currMinDiff< globalMinDiff){
+                    globalMinDiff  = currMinDiff;
+                    index1=i+1;
+                    index2=index1+1;
+                }
+        }
+        out.printLine(index1 + " " + index2);
+//        int index1 = -1;
+//        int index2 = -1;
+//        for(int i=0; i<n;i++){
+//            if(arr[i] == element1)
+//                index1 = i;
+//        }
+//        for(int i=0; i<n;i++){
+//            if(arr[i] == element2 && i!=index1)
+//                index2 = i;
+//        }
+//        out.printLine((index1+1) + " " + (index2+1));
 
 
         out.flush();
@@ -211,4 +237,5 @@ public class Template {
 
 
 }
+
 
