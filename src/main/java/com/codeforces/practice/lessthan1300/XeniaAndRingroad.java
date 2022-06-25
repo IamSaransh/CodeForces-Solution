@@ -1,15 +1,28 @@
-package com;
-
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
+package com.codeforces.practice.lessthan1300;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Template {
-
+public class XeniaAndRingroad {
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[] arr  = in.readArray(m);
+        long time = 0;
+        int prevHouse = 1;
+        for(int currHouse : arr){
+            if(currHouse >= prevHouse ){
+                time+= currHouse-prevHouse;
+            }
+            else{
+                time+= (n-prevHouse) + currHouse;
+            }
+            prevHouse = currHouse;
+        }
+        out.print(time);
 
 
         out.flush();
@@ -19,7 +32,7 @@ public class Template {
 
 
 
-     static class InputReader {
+    private static class InputReader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
@@ -39,9 +52,7 @@ public class Template {
             buffer = new byte[BUFFER_SIZE];
             bufferPointer = bytesRead = 0;
         }
-        /*
-        text = text.replace("\n", "").replace("\r", ""); if using readline
-         */
+
         public String readLine() throws IOException
         {
             byte[] buf = new byte[64]; // line length
@@ -58,7 +69,6 @@ public class Template {
                 buf[cnt++] = (byte)c;
             }
             return new String(buf, 0, cnt);
-//            return new String(buf, 0, cnt).replace("\n", "").replace("\r", "");
         }
 
         public int nextInt() throws IOException
@@ -214,4 +224,5 @@ public class Template {
 
 
 }
+
 

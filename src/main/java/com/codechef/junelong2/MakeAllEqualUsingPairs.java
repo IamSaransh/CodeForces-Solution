@@ -1,4 +1,6 @@
-package com;
+package com.codechef.junelong2;
+
+import com.Template2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,13 +8,27 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Template2 {
-
+public class MakeAllEqualUsingPairs {
     public static void main(String[] args) {
         FastScanner fs=new FastScanner();
         PrintWriter out=new PrintWriter(System.out);
-        int n = fs.nextInt();
+        int TT = fs.nextInt();
+        while(TT-->0)
+        {
+            int n = fs.nextInt();
+            int[] nums =  fs.readArray(n);
+            Map<Integer, Integer> map= new HashMap<>();
+            for(int num: nums )
+                map.merge(num,1, Integer::sum);
+            int maxi = 0;
+            for(int value: map.values()){
+                maxi = Math.max(maxi, value);
+            }
+            System.out.println(n-maxi);
+        }
 
+
+        System.out.println();
         out.close();
     }
 
@@ -30,14 +46,6 @@ public class Template2 {
             a[oi]=a[i]; a[i]=temp;
         }
         Arrays.sort(a);
-    }
-    boolean isSorted(int[] arr){
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i+1]) {
-                return false;
-            }
-        }
-        return true;
     }
     static long add(long a, long b) {
         return (a+b)%mod;
@@ -73,14 +81,6 @@ public class Template2 {
         for (int i:a) l.add(i);
         Collections.sort(l);
         for (int i=0; i<a.length; i++) a[i]=l.get(i);
-    }
-    static int gcd(int a, int b) {
-        while (b != 0) {
-            int t = a;
-            a = b;
-            b = t % b;
-        }
-        return a;
     }
 
     private static class FastScanner {

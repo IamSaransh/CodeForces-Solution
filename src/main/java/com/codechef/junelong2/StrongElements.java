@@ -1,4 +1,6 @@
-package com;
+package com.codechef.junelong2;
+
+import com.Template2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,16 +8,57 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Template2 {
+public class StrongElements {
+    static void sieveOfEratosthenes(int n, boolean[] prime) {
+        for (int p = 2; p * p <= n; p++) {
+            if (prime[p] == true) {
+                for (int i = p * p; i <= n; i += p)
+                    prime[i] = false;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         FastScanner fs=new FastScanner();
         PrintWriter out=new PrintWriter(System.out);
-        int n = fs.nextInt();
+        int TT = fs.nextInt();
+        while(TT-->0)
+        {
+            int count =0;
+            int n = fs.nextInt();
+            int[] nums = fs.readArray(n);
+            int[] prefix = new int[n];
+            int[] suffix = new int[n];
+            fillHelper(prefix, nums, suffix, n);
+            for(int i=0 ; i<n; i++){
+                if(gcdOutlierChecker(i, prefix, suffix, n) > 1)
+                    count++;
+            }
+            System.out.println(count);
+        }
+
 
         out.close();
     }
 
+    private static int gcdOutlierChecker(int i, int[] prefix, int[] suffix, int n) {
+        if(i==0)
+            return suffix[i+1];
+        if(i==n-1)
+            return prefix[i-1];
+        return gcd(prefix[i-1], suffix[i+1]);
+    }
+
+    private static void fillHelper(int[] prefix, int[] nums, int[] suffix, int n) {
+        prefix[0] = nums[0];
+        for(int i=1; i<n; i++){
+            prefix[i] = gcd(prefix[i-1],nums[i] );
+        }
+        suffix[n-1] = nums[n-1];
+        for(int i=n-2; i>=0; i--){
+            suffix[i] = gcd(suffix[i+1],nums[i]);
+        }
+    }
 
 
 
@@ -30,6 +73,21 @@ public class Template2 {
             a[oi]=a[i]; a[i]=temp;
         }
         Arrays.sort(a);
+    }
+//    static int gcd(int a, int b) {
+//        while (b != 0) {
+//            int t = a;
+//            a = b;
+//            b = t % b;
+//        }
+//        return a;
+//    }
+    public static int gcd(int a, int b)
+    {
+        if (a == 0)
+            return b;
+
+        return gcd(b%a, a);
     }
     boolean isSorted(int[] arr){
         for (int i = 0; i < arr.length - 1; i++) {
@@ -73,14 +131,6 @@ public class Template2 {
         for (int i:a) l.add(i);
         Collections.sort(l);
         for (int i=0; i<a.length; i++) a[i]=l.get(i);
-    }
-    static int gcd(int a, int b) {
-        while (b != 0) {
-            int t = a;
-            a = b;
-            b = t % b;
-        }
-        return a;
     }
 
     private static class FastScanner {

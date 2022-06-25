@@ -1,15 +1,43 @@
-package com;
-
-import com.codeforces.practice.lessthan1300.EffectiveApproach;
+package com.codeforces.practice.lessthan1300;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Template {
+public class MagicNumbers {
+
 
     public static void main(String[] args) throws IOException {
         InputReader in = new InputReader();
         OutputWriter out = new OutputWriter(System.out);
+        String number = in.readLine();
+        number = number.replace("\n", "").replace("\r", "");
+        boolean yes = true;
+        int i  = 0;
+        char[] nums = number.toCharArray();
+        int n = nums.length;
+        while(i<n && nums[i] != '\n')
+        {
+          if( i<n-2 && nums[i]=='1' && nums[i+1]=='4' && nums[i+2]=='4'){
+              i+=3;
+              continue;
+          }
+          if( i<n-1 && nums[i]=='1' && nums[i+1]=='4'){
+                i+=2;
+              continue;
+          }
+          if(  nums[i]=='1'){
+                i++;
+          }
+          else{
+              out.printLine("NO");
+              yes = false;
+              break;
+          }
+
+        }
+        if(yes)
+            out.printLine("YES");
 
 
         out.flush();
@@ -19,7 +47,7 @@ public class Template {
 
 
 
-     static class InputReader {
+    private static class InputReader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
@@ -39,9 +67,7 @@ public class Template {
             buffer = new byte[BUFFER_SIZE];
             bufferPointer = bytesRead = 0;
         }
-        /*
-        text = text.replace("\n", "").replace("\r", ""); if using readline
-         */
+
         public String readLine() throws IOException
         {
             byte[] buf = new byte[64]; // line length
@@ -58,7 +84,6 @@ public class Template {
                 buf[cnt++] = (byte)c;
             }
             return new String(buf, 0, cnt);
-//            return new String(buf, 0, cnt).replace("\n", "").replace("\r", "");
         }
 
         public int nextInt() throws IOException
@@ -214,4 +239,6 @@ public class Template {
 
 
 }
+
+
 

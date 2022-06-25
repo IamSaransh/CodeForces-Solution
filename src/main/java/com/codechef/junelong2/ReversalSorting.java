@@ -1,4 +1,6 @@
-package com;
+package com.codechef.junelong2;
+
+import com.sun.javafx.image.BytePixelSetter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,13 +8,38 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Template2 {
+public class ReversalSorting {
 
+    public static  boolean isGood(int[] nums, int n, int x){
+        for(int i=0; i<n-1;i++){
+            if(nums[i] > nums[i+1]){
+                if(nums[i]+ nums[i+1] > x){
+                    return false;
+                }
+                else{
+                    //swap both nums
+                    int temp = nums[i];
+                    nums[i]=nums[i+1];
+                    nums[i+1] = temp;
+                }
+            }
+        }
+        return true;
+    }
     public static void main(String[] args) {
         FastScanner fs=new FastScanner();
         PrintWriter out=new PrintWriter(System.out);
-        int n = fs.nextInt();
-
+        int TT = fs.nextInt();
+        while(TT-->0)
+        {
+            int n = fs.nextInt();
+            int x = fs.nextInt();
+            int[] nums =  fs.readArray(n);
+            if(isGood(nums, n,x))
+                System.out.println("YES");
+            else
+                System.out.println("NO");
+        }
         out.close();
     }
 
@@ -30,14 +57,6 @@ public class Template2 {
             a[oi]=a[i]; a[i]=temp;
         }
         Arrays.sort(a);
-    }
-    boolean isSorted(int[] arr){
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i+1]) {
-                return false;
-            }
-        }
-        return true;
     }
     static long add(long a, long b) {
         return (a+b)%mod;
@@ -74,14 +93,6 @@ public class Template2 {
         Collections.sort(l);
         for (int i=0; i<a.length; i++) a[i]=l.get(i);
     }
-    static int gcd(int a, int b) {
-        while (b != 0) {
-            int t = a;
-            a = b;
-            b = t % b;
-        }
-        return a;
-    }
 
     private static class FastScanner {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
@@ -107,6 +118,14 @@ public class Template2 {
         long nextLong() {
             return Long.parseLong(next());
         }
+    }
+    static boolean isSorted(int[] arr){
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i+1]) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
