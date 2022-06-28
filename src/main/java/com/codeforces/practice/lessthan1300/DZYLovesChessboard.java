@@ -1,6 +1,6 @@
-package com;
+package com.codeforces.practice.lessthan1300;
 
-import javafx.util.Pair;
+import com.Template2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,12 +8,48 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Template2 {
+public class DZYLovesChessboard {
 
     public static void main(String[] args) {
         FastScanner fs=new FastScanner();
         PrintWriter out=new PrintWriter(System.out);
         int n = fs.nextInt();
+        int m = fs.nextInt();
+        char[][] chess = new char[n][m];
+
+        for(int i=0;i<n;i++){
+            chess[i]= fs.next().toCharArray();
+        }
+        //////////////////////////////////////////////////
+        //Final varibles
+        final char BAD = '-';
+        final char GOOD = '.';
+        final char BLACK_CM = 'B';
+        final char WHITE_CM = 'W';
+        /////////////////////////////////////////////////////
+        //Logic starts here
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0; j<m;j++)
+            {
+                if(chess[i][j] != BAD)
+                {
+                    if((i+j)%2==0)
+                        chess[i][j] = BLACK_CM;
+                    else
+                        chess[i][j] = WHITE_CM;
+                }
+            }
+        }
+
+
+        for(int i=0;i<n;i++) {
+            for (int j = 0; j < m; j++) {
+                out.print(chess[i][j]);
+            }
+            out.println();
+        }
+
 
         out.close();
     }
@@ -110,6 +146,5 @@ public class Template2 {
             return Long.parseLong(next());
         }
     }
-
 
 }

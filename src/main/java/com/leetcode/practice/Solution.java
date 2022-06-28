@@ -1,51 +1,52 @@
 package com.leetcode.practice;
 
-import java.util.Collections;
-import java.util.PriorityQueue;
+
+import java.math.BigInteger;
 
 class Solution {
-    public int furthestBuilding(int[] heights, int bricks, int ladders) {
-        final int TOTAL_BUILDINGS = heights.length;
-        int currBricks = bricks;
-        int currLadders = ladders;
-        PriorityQueue<Integer> pQueue = new PriorityQueue<Integer>(Collections.reverseOrder());
-        //small one;s use bricks and big ones use ladder
-        int maxiBuilding = 0;
-        for(int i=0; i< heights.length-1; i++){
-            pQueue.add(heights[i+1] - heights[i]);
-        }
-        for(int building = 1; building < TOTAL_BUILDINGS; building++){
-            int currBuildingHeight = heights[building];
-            int prevBuildingHeight = heights[building-1];
-            int reqBrick =  currBuildingHeight - prevBuildingHeight ;
-            int maxHeap;
-            if(pQueue.isEmpty())
-                maxHeap = -1;
-            else
-                maxHeap = pQueue.peek();
-            if(reqBrick < 0 ){ // jump down
-                maxiBuilding++;
+    static int mod = 1000000007;
+    public static long pow(long a,long b)
+    {
+        long ans = 1;
+        while(b> 0)
+        {
+            if((b & 1)==1){
+                ans = (ans*a) % mod;
             }
-            else{ // go up
-                if(currBuildingHeight!= maxHeap && currBricks > reqBrick ){
-                    currBricks -= reqBrick;
-                    maxiBuilding++;
-                }
-                if(currBuildingHeight== maxHeap && currLadders > 0){
-                    currLadders--;
-                    maxiBuilding++;
-                    pQueue.poll();
-                }
-                if(currBuildingHeight!= maxHeap && (currLadders > 0)){
-                    currLadders--;
-                    maxiBuilding++;
-                }
-                else{
-                    break;
-                }
-            }
+            a = (a*a) % mod;
+            b = b>>1;
         }
-        return maxiBuilding;
+        return ans;
+    }
+
+     int countHousePlacements(int N)
+    {
+        // Base case here
+        if (N == 1)
+            return 4;
+
+        long cB=1, cS=1, pcB, pcS;
+
+        for (int i=2; i<=N; i++)
+        {
+            pcB = cB;
+            pcS = cS;
+
+            cS = (pcB%mod + pcS%mod)%mod;
+            cB = pcS;
+        }
+
+        long r = ((cS %mod)+ (cB%mod) ) %mod;
+        BigInteger b = new BigInteger(String.valueOf(r)).mod(new BigInteger(String.valueOf(mod)));
+        b = b.multiply(b).mod(new BigInteger(String.valueOf(mod)));
+        return b.intValue()%mod;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.countHousePlacements(10000));
 
     }
+
+
 }
