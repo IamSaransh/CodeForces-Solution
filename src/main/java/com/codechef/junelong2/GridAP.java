@@ -1,19 +1,70 @@
-package com;
+package com.codechef.junelong2;
 
-import javafx.util.Pair;
+import com.Template2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
+import java.lang.Math;
 
-public class Template2 {
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
 
+
+public class GridAP {
     public static void main(String[] args) {
         FastScanner fs=new FastScanner();
         PrintWriter out=new PrintWriter(System.out);
-        int n = fs.nextInt();
+        int t = fs.nextInt();
+        while(t-->0)
+        {
+            long rows = fs.nextInt();
+            long cols = fs.nextInt();
+            if(rows==cols)
+            {
+
+                long firstRow = 1; long apCol =1; long apRow = cols+1;
+                for(long i=0;i<rows;i++){
+                    long firstCol = firstRow + i * apRow;
+                    for(long j=0;j<cols;j++){
+                        System.out.print(firstCol + apCol*(j) + " ");
+                    }
+                    apCol++;
+                    System.out.println();
+                }
+            }
+            else
+                if(rows>cols)
+            {
+                long d = 2 * min(rows, cols) + abs(rows-cols);
+                long op=1;
+                for(long i=0;i<rows;i++) {
+                    for (long j = 0; j < cols; j++) {
+                        System.out.print(op + d * j);
+                        System.out.print(" ");
+                    }
+                    op+=min(rows, cols);
+                    System.out.println();
+                    d--;
+                }
+            }
+            else //if(rows<cols)
+            {
+                long d = min(rows, cols) ;
+                long op=1;
+                for(long i=0;i<rows;i++) {
+                    for (long j = 0; j < cols; j++) {
+                        System.out.print(op + d * j);
+                        System.out.print(" ");
+                    }
+                    op+= 2 * min(rows, cols) + abs(rows- cols);
+                    System.out.println();
+                    d--;
+                }
+            }
+        }
 
         out.close();
     }
@@ -33,7 +84,7 @@ public class Template2 {
         }
         Arrays.sort(a);
     }
-    static boolean isSorted(int[] arr){
+    boolean isSorted(int[] arr){
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] > arr[i+1]) {
                 return false;
@@ -41,7 +92,6 @@ public class Template2 {
         }
         return true;
     }
-
     static long add(long a, long b) {
         return (a+b)%mod;
     }
@@ -112,5 +162,5 @@ public class Template2 {
         }
     }
 
-
 }
+
