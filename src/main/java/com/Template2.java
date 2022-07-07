@@ -42,7 +42,8 @@ public class Template2 {
         return true;
     }
 
-    static long add(long a, long b) {
+
+        static long add(long a, long b) {
         return (a+b)%mod;
     }
     static long sub(long a, long b) {
@@ -111,6 +112,17 @@ public class Template2 {
             return Long.parseLong(next());
         }
     }
+    static void shuffleArray(long[] arr) {
+        int n = arr.length;
+        Random rnd = new Random();
+        for (int i = 0; i < n; ++i) {
+            long tmp = arr[i];
+            int randomPos = i + rnd.nextInt(n - i);
+            arr[i] = arr[randomPos];
+            arr[randomPos] = tmp;
+        }
+    }
+
 
 
 }
