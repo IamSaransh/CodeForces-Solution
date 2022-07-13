@@ -1,4 +1,4 @@
-package com.codeforces.contest804;
+package com.codeforces.contest805;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class C {
+public class E {
 
 
     public static void main(String[] args) {
@@ -15,46 +15,41 @@ public class C {
         int T = fs.nextInt();
         while(T-->0)
         {
-//            String useless = fs.next();
             int n = fs.nextInt();
-            int  k = fs.nextInt();
-
-            HashMap<Integer, Integer> global1= new HashMap<>();
-            HashMap<Integer, Integer> global2= new HashMap<>();
-            int[] stations = new int[n];
+            int numPairs = 2;
+            HashSet<Integer> s1 = new HashSet<>();
+            HashSet<Integer> s2 = new HashSet<>();
+            int[][] sets = new int[n][2];
             for(int i=0;i<n;i++){
-                stations[i] = fs.nextInt();
+                int a = fs.nextInt();
+                int b = fs.nextInt();
+                sets[i][0]= a;
+                sets[i][1]= b;
             }
-
-            //precomputing here
-            int count = 1;
-            for(int station: stations){
-              if(global1.containsKey(station)){
-                 global2.put(station, count);
-                 count++;
-              }
-              else{
-                  global1.put(station, count);
-                  count++;
-              }
+            ////--------------------------------------------
+            boolean isGood= true;
+            for(int i=0;i<n;i++){
+                int a = sets[i][0];
+                int b = sets[i][1];
+                if(!s1.contains(a) && !s1.contains(b)){
+                    s1.add(a);
+                    s1.add(b);
+                }
+                else if(!s2.contains(a) && !s2.contains(b)){
+                    s2.add(a);
+                    s2.add(b);
+                }
+                else{
+                    isGood = false;
+                    break;
+                }
             }
+            if(isGood)
+                System.out.println("YES");
 
-            for(int i=0;i<k;i++){
-                int from  = fs.nextInt();
-                int to = fs.nextInt();
-                if(global1.containsKey(from) && global1.containsKey(to)
-                        && global1.get(to) > global1.get(from))
-                    System.out.println("YES");
+            else
+                System.out.println("NO");
 
-                else if(global1.containsKey(from) && global2.containsKey(to)
-                        && global2.get(to) > global1.get(from))
-                    System.out.println("YES");
-                else if(global2.containsKey(from) && global2.containsKey(to)
-                        && global2.get(to) > global2.get(from))
-                    System.out.println("YES");
-                else
-                    System.out.println("NO");
-            }
         }
 
         out.close();

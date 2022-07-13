@@ -1,4 +1,4 @@
-package com.codeforces.contest804;
+package com.codeforces.contest806;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,50 +6,22 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class E {
+public class A {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        while(T-->0)
+        int TT = fs.nextInt();
+        while(TT-->0)
         {
-            int n = fs.nextInt();
-            int numPairs = 2;
-            HashSet<Integer> s1 = new HashSet<>();
-            HashSet<Integer> s2 = new HashSet<>();
-            int[][] sets = new int[n][2];
-            for(int i=0;i<n;i++){
-                int a = fs.nextInt();
-                int b = fs.nextInt();
-                sets[i][0]= a;
-                sets[i][1]= b;
-            }
-            ////--------------------------------------------
-            boolean isGood= true;
-            for(int i=0;i<n;i++){
-                int a = sets[i][0];
-                int b = sets[i][1];
-                if(!s1.contains(a) && !s1.contains(b)){
-                    s1.add(a);
-                    s1.add(b);
-                }
-                else if(!s2.contains(a) && !s2.contains(b)){
-                    s2.add(a);
-                    s2.add(b);
-                }
-                else{
-                    isGood = false;
-                    break;
-                }
-            }
-            if(isGood)
-                System.out.println("YES");
+           String s = fs.next();
 
+            if((s.charAt(0)=='Y' || s.charAt(0)=='y') && (s.charAt(1)=='E' || s.charAt(1)=='e') &&
+                    (s.charAt(2)=='S' || s.charAt(2)=='s'))
+                System.out.println("YES");
             else
                 System.out.println("NO");
-
         }
 
         out.close();

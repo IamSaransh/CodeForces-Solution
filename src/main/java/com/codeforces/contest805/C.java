@@ -1,4 +1,4 @@
-package com.codeforces.contest804;
+package com.codeforces.contest805;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,19 +6,55 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class A {
+public class C {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
-        int t = fs.nextInt();
-        while(t-->0)
+        int T = fs.nextInt();
+        while(T-->0)
         {
-            int num = fs.nextInt();
-            int length = String.valueOf(num).length();
-            int ans = (int) (num - Math.pow(10, length-1));
-            System.out.println(ans);
+//            String useless = fs.next();
+            int n = fs.nextInt();
+            int  k = fs.nextInt();
+
+            HashMap<Integer, Integer> global1= new HashMap<>();
+            HashMap<Integer, Integer> global2= new HashMap<>();
+            int[] stations = new int[n];
+            for(int i=0;i<n;i++){
+                stations[i] = fs.nextInt();
+            }
+
+            //precomputing here
+            int count = 1;
+            for(int station: stations){
+              if(global1.containsKey(station)){
+                 global2.put(station, count);
+                 count++;
+              }
+              else{
+                  global1.put(station, count);
+                  count++;
+              }
+            }
+
+            for(int i=0;i<k;i++){
+                int from  = fs.nextInt();
+                int to = fs.nextInt();
+                if(global1.containsKey(from) && global1.containsKey(to)
+                        && global1.get(to) > global1.get(from))
+                    System.out.println("YES");
+
+                else if(global1.containsKey(from) && global2.containsKey(to)
+                        && global2.get(to) > global1.get(from))
+                    System.out.println("YES");
+                else if(global2.containsKey(from) && global2.containsKey(to)
+                        && global2.get(to) > global2.get(from))
+                    System.out.println("YES");
+                else
+                    System.out.println("NO");
+            }
         }
 
         out.close();

@@ -1,6 +1,7 @@
 package com.leetcode.practice;
 
 import java.util.Collections;
+import java.util.HashSet;
 
 class Solution {
 
@@ -107,7 +108,14 @@ class Solution {
         }
 
     }
+    private static void check(String s) {
+        for(int i=1; i<s.length()-1;i++){
+            String s1 = s.substring(0, i+1);
+            String s2 = s.substring(i+1);
 
+        }
+
+    }
 
     public static void main(String[] args) {
         int [] arr = {1,2,3,4,100,6,6,6,6,6,6,7,8};

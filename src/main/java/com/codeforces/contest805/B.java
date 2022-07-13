@@ -1,61 +1,42 @@
-package com.codeforces.contest804;
+package com.codeforces.contest805;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Stream;
 
-public class D {
+public class B {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        while(T-->0)
+        int t = fs.nextInt();
+        while(t-->0)
         {
-            String s = fs.next();
-            int n = s.length();
-            int p = fs.nextInt();
-            char[] arr = s.toCharArray();
-            HashMap<Character, Integer> map = new HashMap<>();
-            int currPrice = 0;
-            for(char c: s.toCharArray()){
-                map.merge(c, 1, Integer::sum);
-                currPrice += getCost(c);
-            }
-            for (int i=25;i>=0;i--){
-                if(currPrice<=p)
+            String s  = fs.next();
+            HashSet<Character> set = new HashSet<>();
+            int days = 0;
+            for( int i=0;i<s.length();i++){
+                char c = s.charAt(i);
+                set.add(c);
+
+                if(set.size()>3){
+                    set.clear();
+                    set.add(c);
+                    days++;
+                }
+                if(i==s.length()-1 && set.size()<=3 ){
+                    days++;
                     break;
-//                char currChar = (char) (i+97);
-                int howMuchToSUb = Math.min(map.getOrDefault((char) (i+97), 0) ,
-                        (currPrice-p  + (i+1) -1)  /( i+1)    );
-                if(map.containsKey((char) (i+97))){ // added
-                    map.merge((char) (i+97), -howMuchToSUb, Integer::sum);
-                    currPrice-=howMuchToSUb * (i+1);
                 }
-            }
-            List<Character> ans = new ArrayList<>();
-            for(char c: s.toCharArray()){
-                if(map.containsKey(c)  && map.getOrDefault(c,0)>0){
-                    map.merge(c,-1, Integer::sum);
-                    ans.add(c);
-                }
-            }
-            StringBuilder sb = new StringBuilder();
-            for(char c: ans)
-                sb.append(c);
-            System.out.println(sb.toString());
 
-
+            }
+            System.out.println(days);
         }
 
         out.close();
-    }
-    static  int getCost(char c){
-        return c - 'a' + 1;
     }
 
 
