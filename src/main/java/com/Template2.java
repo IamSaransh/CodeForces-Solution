@@ -1,6 +1,5 @@
 package com;
 
-import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
