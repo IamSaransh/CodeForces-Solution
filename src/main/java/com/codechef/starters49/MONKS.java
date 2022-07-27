@@ -1,4 +1,4 @@
-package com.codechef.julylong2;
+package com.codechef.starters49;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,95 +7,82 @@ import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CONCATSORT {
+public class MONKS {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
-        while (TT-- > 0) {
-//            int n = fs.nextInt();
-//            int[] arr = fs.readArray(n);
-//            int i;
-//            int j= 1;
-//            boolean isPossible = true;
-//            boolean ArraySorted = false;
-//            for(i=0; i<n-1; i++)
-//            {
-//                if(arr[i+1] < arr[i] )
-//                {
-//                    //first break from seequesnce where a[j] < a[i] & j>i
-//                    j = i+1;
-//                    break;
-//                }
-//                if(i==n-2){
-//                    System.out.println("YES");
-//                    ArraySorted = true;
-//                }
-//            }
-//            if(ArraySorted)
-//                continue;
-//            int secondSubArrayLastIndex = arr[j];
-//            for(; i<n-1;i++){
-//                if(arr[i+1] >= arr[i])
-//                    continue;
-//                else if(arr[i+1] >= secondSubArrayLastIndex){
-//                    secondSubArrayLastIndex = arr[i+1];
-//                }
-//                else{
-//                    isPossible = false;
-//                    break;
-//                }
-//            }
-//            if(isPossible)
-//                System.out.println("YES");
-//            else
-//                System.out.println("NO");
+        while (TT-- > 0)
+        {
             int n = fs.nextInt();
-            int[] arr = fs.readArray(n);
-            List<Integer> sorted = Arrays.stream(arr).boxed().sorted().collect(Collectors.toList());
-
-            List<Integer> secondList = new ArrayList<>();
-
-            int i = 0; int j=0;
-            for(;i<n;i++)
-            {
-                while(j<n && arr[j]!= sorted.get(i)){
-                    secondList.add(arr[j]);
-                    j++;
-                }
-                if(j==n)
-                    break;
-                if(arr[j]== sorted.get(i))
-                    j++;
-            }
-
-            if(isListSOrted( secondList, secondList.size()))
-                out.println("YES");
-            else
-                out.println("NO");
-//            System.out.println(secondList);
-
-
-
-
-        }
+            int[] money = fs.readArray(n);
+            Integer sum = Arrays.stream(money).reduce(0, Integer::sum);
+         ruffleSort(money);
+            long a1 = answerFuntion(money, n);
+            List<Integer> sortedRevered = Arrays.stream(money).boxed().sorted((x, y) -> x - y).collect(Collectors.toList());
+            int[] reversed = reverse(money, n);
+            long a2 = answerFuntion(reversed, n);
+            long answer = Math.min(a1, a2);
+            System.out.println(answer);
+         }
 
         out.close();
         out.flush();
     }
 
-
-    static final Random random = new Random();
-    static boolean isListSOrted(List<Integer> list , int n){
-        for(int i=0;i<n-1; i++){
-            if(list.get(i)> list.get(i+1))
-                return false;
+    static int[] reverse(int[] a, int n) {
+        int[] b = new int[n];
+        int j = n;
+        for (int i = 0; i < n; i++) {
+            b[j - 1] = a[i];
+            j = j - 1;
         }
-        return  true;
+        return b;
     }
 
+    public static boolean isGood(int[] array, long N, long n)
+    {
+
+        long x = 0;
+        for (int i = 0; i < N; i++)
+            x += array[i];
+
+        long mx = 0;
+        for (int i = (int) N; i < n; i++)
+            mx = Math.max(array[i], mx);
+
+        long count = 0;
+        for (int i = (int) N; i < n; i++)
+            count += Math.abs(array[i] - mx);
+
+        return x >= count;
+    }
+
+    public static  long answerFuntion(int[] array, long n)
+    {
+
+        long lower = 0, higher = n;
+        long ans = 0;
+        while (higher >= lower)
+        {
+            long tempVariable = (lower + higher) / 2;
+            if (isGood(array, tempVariable, n))
+            {
+                higher = tempVariable - 1;
+                ans = tempVariable;
+            }
+            else
+            {
+                lower = tempVariable + 1;
+            }
+        }
+        return ans;
+    }
+
+
+    static final Random random = new Random();
     static final int mod = 1_000_000_007;
 
     static void ruffleSort(int[] a) {
@@ -108,7 +95,7 @@ public class CONCATSORT {
         Arrays.sort(a);
     }
 
-    static boolean isSorted(int[] arr) {
+    boolean isSorted(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] > arr[i + 1]) {
                 return false;

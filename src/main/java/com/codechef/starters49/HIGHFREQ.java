@@ -1,13 +1,14 @@
-package com.codechef.julylong2;
+package com.codechef.starters49;
+
+import sun.reflect.generics.tree.Tree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class CONCATSORT {
+public class HIGHFREQ {
 
 
     public static void main(String[] args) {
@@ -15,68 +16,26 @@ public class CONCATSORT {
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
         while (TT-- > 0) {
-//            int n = fs.nextInt();
-//            int[] arr = fs.readArray(n);
-//            int i;
-//            int j= 1;
-//            boolean isPossible = true;
-//            boolean ArraySorted = false;
-//            for(i=0; i<n-1; i++)
-//            {
-//                if(arr[i+1] < arr[i] )
-//                {
-//                    //first break from seequesnce where a[j] < a[i] & j>i
-//                    j = i+1;
-//                    break;
-//                }
-//                if(i==n-2){
-//                    System.out.println("YES");
-//                    ArraySorted = true;
-//                }
-//            }
-//            if(ArraySorted)
-//                continue;
-//            int secondSubArrayLastIndex = arr[j];
-//            for(; i<n-1;i++){
-//                if(arr[i+1] >= arr[i])
-//                    continue;
-//                else if(arr[i+1] >= secondSubArrayLastIndex){
-//                    secondSubArrayLastIndex = arr[i+1];
-//                }
-//                else{
-//                    isPossible = false;
-//                    break;
-//                }
-//            }
-//            if(isPossible)
-//                System.out.println("YES");
-//            else
-//                System.out.println("NO");
-            int n = fs.nextInt();
+            int n  = fs.nextInt();
             int[] arr = fs.readArray(n);
-            List<Integer> sorted = Arrays.stream(arr).boxed().sorted().collect(Collectors.toList());
-
-            List<Integer> secondList = new ArrayList<>();
-
-            int i = 0; int j=0;
-            for(;i<n;i++)
+            int max1 = -1;
+            Integer max2 = -1;
+            Map<Integer, Integer> map = new HashMap<>();
+            for(int a: arr)
+                map.merge(a,1, Integer::sum);
+            Queue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+            for(int x: map.values())
+                priorityQueue.add(x);
+            if(priorityQueue.size()==1)
             {
-                while(j<n && arr[j]!= sorted.get(i)){
-                    secondList.add(arr[j]);
-                    j++;
-                }
-                if(j==n)
-                    break;
-                if(arr[j]== sorted.get(i))
-                    j++;
+                out.println((int) Math.ceil((priorityQueue.poll() * 1.0)/2));
             }
-
-            if(isListSOrted( secondList, secondList.size()))
-                out.println("YES");
-            else
-                out.println("NO");
-//            System.out.println(secondList);
-
+            else{
+                max2 = priorityQueue.poll();
+                max1 = priorityQueue.poll();
+                max2 = (int) Math.ceil((max2 * 1.0)/2);
+                out.println(Math.max(max2, max1));
+            }
 
 
 
@@ -88,14 +47,6 @@ public class CONCATSORT {
 
 
     static final Random random = new Random();
-    static boolean isListSOrted(List<Integer> list , int n){
-        for(int i=0;i<n-1; i++){
-            if(list.get(i)> list.get(i+1))
-                return false;
-        }
-        return  true;
-    }
-
     static final int mod = 1_000_000_007;
 
     static void ruffleSort(int[] a) {
@@ -108,7 +59,7 @@ public class CONCATSORT {
         Arrays.sort(a);
     }
 
-    static boolean isSorted(int[] arr) {
+    boolean isSorted(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] > arr[i + 1]) {
                 return false;

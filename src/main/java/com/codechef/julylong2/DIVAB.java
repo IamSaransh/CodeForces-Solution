@@ -10,6 +10,7 @@ public class DIVAB {
 
 
     public static void main(String[] args) {
+
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
