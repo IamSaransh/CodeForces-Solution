@@ -18,14 +18,29 @@ public class MONKS {
         {
             int n = fs.nextInt();
             int[] money = fs.readArray(n);
-            Integer sum = Arrays.stream(money).reduce(0, Integer::sum);
-         ruffleSort(money);
-            long a1 = answerFuntion(money, n);
-            List<Integer> sortedRevered = Arrays.stream(money).boxed().sorted((x, y) -> x - y).collect(Collectors.toList());
-            int[] reversed = reverse(money, n);
-            long a2 = answerFuntion(reversed, n);
-            long answer = Math.min(a1, a2);
-            System.out.println(answer);
+            ruffleSort(money);
+            long[] pre = new long[n];
+            pre[0] = money[0];
+            for(int i=1;i<n;i++)
+            {
+                pre[i] = pre[i-1] + money[i];
+            }
+
+            if(money[0]==money[n-1] || n==1){
+                out.println(0);
+                continue;
+            }
+            long prev = 0;
+            for(int i=n-1; i>=0; i--)
+            {
+
+                long required = ((i+1) *1L * money[i]) - pre[i-1];
+                if(prev>=required ) {
+                    out.println(n-1-i);
+                    break;
+                }
+                prev += money[i];
+            }
          }
 
         out.close();
@@ -42,44 +57,6 @@ public class MONKS {
         return b;
     }
 
-    public static boolean isGood(int[] array, long N, long n)
-    {
-
-        long x = 0;
-        for (int i = 0; i < N; i++)
-            x += array[i];
-
-        long mx = 0;
-        for (int i = (int) N; i < n; i++)
-            mx = Math.max(array[i], mx);
-
-        long count = 0;
-        for (int i = (int) N; i < n; i++)
-            count += Math.abs(array[i] - mx);
-
-        return x >= count;
-    }
-
-    public static  long answerFuntion(int[] array, long n)
-    {
-
-        long lower = 0, higher = n;
-        long ans = 0;
-        while (higher >= lower)
-        {
-            long tempVariable = (lower + higher) / 2;
-            if (isGood(array, tempVariable, n))
-            {
-                higher = tempVariable - 1;
-                ans = tempVariable;
-            }
-            else
-            {
-                lower = tempVariable + 1;
-            }
-        }
-        return ans;
-    }
 
 
     static final Random random = new Random();

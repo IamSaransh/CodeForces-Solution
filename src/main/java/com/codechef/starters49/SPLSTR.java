@@ -29,14 +29,11 @@ public class SPLSTR {
             }
             int count = 0;
 
-          int maxiNow = Math.max(count0, count1) - Math.min(count1, count0);
-            if(maxiNow % k >0)
-            {
-                count++;
-            }
-            maxiNow = maxiNow/k;
-            maxiNow = maxiNow + count;
-            System.out.println(maxiNow);
+          int excessToken = Math.max(count0, count1) - Math.min(count1, count0);
+
+          int ans = (int) Math.ceil( (excessToken * 1d )/ k );
+            System.out.println(ans);
+
         }
 
         out.close();
