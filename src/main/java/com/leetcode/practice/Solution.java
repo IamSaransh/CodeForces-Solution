@@ -3,42 +3,50 @@ package com.leetcode.practice;
 import java.util.*;
 
 class Solution {
-    public int equalPairs(int[][] grid) {
-        int rows = grid.length;
-        int cols = grid[0].length;
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
 
-        Map<String, Integer> mapRow = new HashMap<>();
-        Map<String, Integer> mapCol = new HashMap<>();
-
-        //adding  rows to the map
-        for (int[] row : grid) {
-            StringBuilder sb = new StringBuilder();
-            for (int rowVal : row) {
-                sb.append(rowVal);
-            }
-            mapRow.merge(sb.toString(), 1, Integer::sum);
-        }
-        //ading cols to the map
-        for (int i = 0; i < rows; i++)
+        final int LENGTH = pattern.length();
+        List<String> ans = new ArrayList<>(); //ans initlization
+        Map<Character, Integer> patternMap = new HashMap<>();
+        for(int i=0;i<LENGTH;i++)
         {
-            StringBuilder sb = new StringBuilder();
-            for ( int j = 0; j < cols; j++)
+            patternMap.merge(pattern.charAt(i), i, Integer::sum);
+        }
+
+        for(String word: words)
+        {
+            Map<Character, Integer> wordMap = new HashMap<>();
+            for(int i=0; i<LENGTH;i++)
             {
-                 sb.append(grid[j][i]);
+                wordMap.merge(word.charAt(i), i, Integer::sum);
             }
-            mapCol.merge(sb.toString(), 1, Integer::sum);
+            if(isGood(patternMap, wordMap, word, pattern, LENGTH))
+                ans.add(word);
         }
-        int ans = 0;
-        for(String rowMApString: mapRow.keySet()){
-            if(mapCol.containsKey(rowMApString)){
-                ans+= (mapRow.get(rowMApString)) * (mapCol.get(rowMApString));
-            }
-        }
-return  ans;
+        return ans;
     }
 
+    private boolean isGood(Map<Character, Integer> patternMap, Map<Character, Integer> wordMap, String word, String pattern, int length) {
+        if(patternMap.size()!=wordMap.size())
+            return false;
+        for(int i=0;i<length;i++)
+        {
+            if( (int)patternMap.get(pattern.charAt(i))!= (int) wordMap.get(word.charAt(i)))
+                return false;
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
+        String [] words = {"abc","deq","mee","aqq","dkd","ccc" };
+        String pattern = "abb";
+
+//        String [] words = { "ktittgzawn","dgphvfjniv","gceqobzmis",
+//                "alrztxdlah","jijuevoioe","mawiizpkub","onwpmnujos",
+//                "zszkptjgzj","zwfvzhrucv","isyaphcszn" };
+//        String pattern = "zdqmjnczma";
         Solution s = new Solution();
-        int[] arr = { 1,2,3 };
+        System.out.println(s.findAndReplacePattern(words, pattern));
     }
 }
