@@ -1,63 +1,40 @@
-package com.codechef.starters49;
+package com.codechef.starters52;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class MONKS {
+public class WATESTCASES {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
-        while (TT-- > 0)
-        {
+        while (TT-- > 0) {
             int n = fs.nextInt();
-            int[] money = fs.readArray(n);
-            ruffleSort(money);
-            long[] pre = new long[n];
-            pre[0] = money[0];
-            for(int i=1;i<n;i++)
+            int[] testValue = fs.readArray(n);
+            String binary = fs.next();
+            //get the array from the string
+            char[] testPassFail = new char[n];
+            for(int i=0;i<n;i++)
             {
-                pre[i] = pre[i-1] + money[i];
+                testPassFail[i] = binary.charAt(i);
             }
-
-            if(money[0]==money[n-1] || n==1){
-                out.println(0);
-                continue;
-            }
-            long prev = 0;
-            for(int i=n-1; i>=0; i--)
-            {
-
-                long required = ((i+1) *1L * money[i]) - pre[i-1];
-                if(prev>=required ) {
-                    out.println(n-1-i);
-                    break;
+            List<Integer> possibleFail = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                if(testPassFail[i]=='0'){
+                    possibleFail.add(testValue[i]);
                 }
-                prev += money[i];
-
             }
-         }
+            out.println( Collections.min(possibleFail));
+        }
 
         out.close();
         out.flush();
     }
-
-    static int[] reverse(int[] a, int n) {
-        int[] b = new int[n];
-        int j = n;
-        for (int i = 0; i < n; i++) {
-            b[j - 1] = a[i];
-            j = j - 1;
-        }
-        return b;
-    }
-
 
 
     static final Random random = new Random();
