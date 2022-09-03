@@ -12,7 +12,7 @@ public class FindCallOrder {
     {
         System.out.println("company");
     }
-    {
+    static {
         System.out.println("sortune one");
     }
     public FindCallOrder(){
