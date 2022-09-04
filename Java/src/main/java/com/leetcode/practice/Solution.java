@@ -2,52 +2,44 @@ package com.leetcode.practice;
 
 import java.util.*;
 
-
 class Solution {
-    public List<String> findAndReplacePattern(String[] words, String pattern) {
-
-        final int LENGTH = pattern.length();
-        List<String> ans = new ArrayList<>(); //ans initlization
-        Map<Character, Integer> patternMap = new HashMap<>();
-        for(int i=0;i<LENGTH;i++)
-        {
-            patternMap.merge(pattern.charAt(i), i, Integer::sum);
+    public int[] numsSameConsecDiff(int n, int k) {
+        List<Integer> res = new ArrayList<>();
+        String curr = "";
+        //leading value can't be zero
+        for(int i=1;i<10;i++){
+            curr+=i;
+            helper(res, curr, n, k);
+            curr=curr.substring(0, curr.length()-1);
         }
+        int[] array = new int[res.size()];
+        System.out.println(res);
+        // res.toArray(array); // fill the array
+        return array;
 
-        for(String word: words)
+    }
+    void helper(List<Integer> res, String curr,int n, int k){
+        if(curr.length()==n) {
+            res.add(Integer.valueOf(curr));
+            return;
+        }
+        for(int i=0;i<10;i++)
         {
-            Map<Character, Integer> wordMap = new HashMap<>();
-            for(int i=0; i<LENGTH;i++)
+            int diff = curr.charAt(curr.length()-1)-'0' - i;
+
+            System.out.println(diff + " " + curr + " " + i);
+            if(Math.abs(diff)==k)
             {
-                wordMap.merge(word.charAt(i), i, Integer::sum);
+                curr+=i;
+                helper(res, curr, n, k);
+                curr=curr.substring(0, curr.length()-1);
             }
-            if(isGood(patternMap, wordMap, word, pattern, LENGTH))
-                ans.add(word);
         }
-        return ans;
-    }
 
-    private boolean isGood(Map<Character, Integer> patternMap, Map<Character, Integer> wordMap, String word, String pattern, int length) {
-        if(patternMap.size()!=wordMap.size())
-            return false;
-        for(int i=0;i<length;i++)
-        {
-            if( (int)patternMap.get(pattern.charAt(i))!= (int) wordMap.get(word.charAt(i)))
-                return false;
-        }
-        return true;
     }
-
 
     public static void main(String[] args) {
-        String [] words = {"abc","deq","mee","aqq","dkd","ccc" };
-        String pattern = "abb";
-
-//        String [] words = { "ktittgzawn","dgphvfjniv","gceqobzmis",
-//                "alrztxdlah","jijuevoioe","mawiizpkub","onwpmnujos",
-//                "zszkptjgzj","zwfvzhrucv","isyaphcszn" };
-//        String pattern = "zdqmjnczma";
         Solution s = new Solution();
-        System.out.println(s.findAndReplacePattern(words, pattern));
+        s.numsSameConsecDiff(3,7);
     }
 }

@@ -1,6 +1,5 @@
 package com.codeforces.practice.c2oj1300;
 
-import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;

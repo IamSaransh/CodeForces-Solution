@@ -1,6 +1,5 @@
 package com.codechef.starters49;
 
-import sun.reflect.generics.tree.Tree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
