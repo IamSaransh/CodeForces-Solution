@@ -1,4 +1,4 @@
-package com.codeforces.practice.c2oj1200;
+package com.codeforces.contest820;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,54 +6,25 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class CorruptedArray1512D {
+public class C {
 
 
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
+        char[] mapping = " abcdefghijklmnopqrstuvwxyz".toCharArray();
         while (TT-- > 0) {
-            int n = fs.nextInt();
-            int b[] = fs.readArray(n+2);
-            ruffleSort(b);
-            //now the last element is the sum element;
-            int sum = b[n+1];
-            int indexThatShouldBeRemoved  = -1;
-            int sumTillNPlus1 = 0;
-            for(int i=0;i<n+1;i++) {
-                sumTillNPlus1+=b[i];
-            }
-            for(int i=0;i<n+1;i++){
-                if(sumTillNPlus1-b[i] == sum) {
-                    indexThatShouldBeRemoved = i;
-                    break;
-                }
-            }
-            if(n==1)
+            char[] s = fs.next().toCharArray();
+            int n = s.length;
+            int[] arr = new int[n];
+            for(int i=0;i<n;i++)
             {
-                if(b[0]==b[2]){
-                    out.print(b[0]);
-                }
-                else if(b[1]==b[2])
-                    out.println(b[1]);
-                else out.println(-1);
-
-                continue; // go to next testcaswe
+                arr[i]=s[i]-'0';
             }
-            if(indexThatShouldBeRemoved==-1){
-                out.println(-1);
-            }
-            else{
-                for(int i=0;i<n+1;i++){
-                    if(i!=indexThatShouldBeRemoved){
-                        out.print(b[i]);
-                        out.print(" ");
-                    }
-                }
-                out.print("\\");
-            }
-
+            Map<Integer,Integer> map = new HashMap<>();
+            for(int x: arr)
+                map.merge(x, 1,Integer::sum);
 
         }
 

@@ -1,4 +1,4 @@
-package com.codeforces.practice.c2oj1200;
+package com.codeforces.contest820;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,55 +6,51 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class CorruptedArray1512D {
-
-
+public class B {
     public static void main(String[] args) {
         FastScanner fs = new FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
         while (TT-- > 0) {
             int n = fs.nextInt();
-            int b[] = fs.readArray(n+2);
-            ruffleSort(b);
-            //now the last element is the sum element;
-            int sum = b[n+1];
-            int indexThatShouldBeRemoved  = -1;
-            int sumTillNPlus1 = 0;
-            for(int i=0;i<n+1;i++) {
-                sumTillNPlus1+=b[i];
-            }
-            for(int i=0;i<n+1;i++){
-                if(sumTillNPlus1-b[i] == sum) {
-                    indexThatShouldBeRemoved = i;
-                    break;
+            char[] arr = fs.next().toCharArray();
+            char[] mapping = " abcdefghijklmnopqrstuvwxyz".toCharArray();
+//            System.out.println("-------------------------------------------");
+            StringBuilder res = new StringBuilder();
+            for(int i=0;i<n;i++){
+                if(arr[i] !='1' && arr[i] !='2' )
+                {
+                    res.append(mapping[arr[i] - '0']);
                 }
-            }
-            if(n==1)
-            {
-                if(b[0]==b[2]){
-                    out.print(b[0]);
+                else if(n-i-1==2 && arr[n-1]=='0'){
+                    String thatLetter =  String.valueOf(arr[i]-'0') + String.valueOf(arr[i+1]-'0');
+                    res.append(mapping[Integer.parseInt(thatLetter)]);
+                    i+=2;
                 }
-                else if(b[1]==b[2])
-                    out.println(b[1]);
-                else out.println(-1);
+                else if(n-i-1<=2){
+                    res.append(mapping[arr[i] - '0']);
+                    continue;
+                }
+                //character if 1 -> either two lettered character or single char
+                else{
+                    if(arr[i+2] !=  '0'){
+                        res.append(mapping[arr[i] - '0']);
+                    }
+                    else{
+                        if( (n-i-1) >=3 &&  arr[i+2]=='0' && arr[i+3]=='0')
+                        {
+                            res.append(mapping[arr[i] - '0']);
+                        }
+                        else{
+                            String thatLetter =  String.valueOf(arr[i]-'0') + String.valueOf(arr[i+1]-'0');
+                            res.append(mapping[Integer.parseInt(thatLetter)]);
+                            i+=2;
+                        }
 
-                continue; // go to next testcaswe
-            }
-            if(indexThatShouldBeRemoved==-1){
-                out.println(-1);
-            }
-            else{
-                for(int i=0;i<n+1;i++){
-                    if(i!=indexThatShouldBeRemoved){
-                        out.print(b[i]);
-                        out.print(" ");
                     }
                 }
-                out.print("\\");
             }
-
-
+            System.out.println(res.toString());
         }
 
         out.close();

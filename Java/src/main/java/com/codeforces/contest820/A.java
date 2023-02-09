@@ -1,4 +1,4 @@
-package com.codeforces.practice.c2oj1200;
+package com.codeforces.contest820;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class CorruptedArray1512D {
+public class A {
 
 
     public static void main(String[] args) {
@@ -14,47 +14,19 @@ public class CorruptedArray1512D {
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
         while (TT-- > 0) {
-            int n = fs.nextInt();
-            int b[] = fs.readArray(n+2);
-            ruffleSort(b);
-            //now the last element is the sum element;
-            int sum = b[n+1];
-            int indexThatShouldBeRemoved  = -1;
-            int sumTillNPlus1 = 0;
-            for(int i=0;i<n+1;i++) {
-                sumTillNPlus1+=b[i];
+            int a = fs.nextInt();
+            int b = fs.nextInt();
+            int c = fs.nextInt();
+            int tt1 = 0;
+            int tt2 =0;
+            tt1 = Math.abs(a-1);
+            tt2 = Math.abs(c-b) + Math.abs(c - 1);
+            if(tt1<tt2)
+                out.println(1);
+            if(tt1>tt2){
+                out.println(2);
             }
-            for(int i=0;i<n+1;i++){
-                if(sumTillNPlus1-b[i] == sum) {
-                    indexThatShouldBeRemoved = i;
-                    break;
-                }
-            }
-            if(n==1)
-            {
-                if(b[0]==b[2]){
-                    out.print(b[0]);
-                }
-                else if(b[1]==b[2])
-                    out.println(b[1]);
-                else out.println(-1);
-
-                continue; // go to next testcaswe
-            }
-            if(indexThatShouldBeRemoved==-1){
-                out.println(-1);
-            }
-            else{
-                for(int i=0;i<n+1;i++){
-                    if(i!=indexThatShouldBeRemoved){
-                        out.print(b[i]);
-                        out.print(" ");
-                    }
-                }
-                out.print("\\");
-            }
-
-
+            if(tt1==tt2) out.println(3);
         }
 
         out.close();
