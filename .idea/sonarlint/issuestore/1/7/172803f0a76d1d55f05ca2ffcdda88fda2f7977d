@@ -1,0 +1,12 @@
+
+z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(•Ú¼¸øÿÿÿÿ8Š±øÖ¡0
+@
+java:S5411"*Use the primitive boolean expression here.(ô÷ÎÛ
+k
+java:S1149"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÑÖÙƒıÿÿÿÿ
+h
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(äÜ‡¥
+F
+java:S1481"0Remove this unused "countSubseq" local variable.(ß²„
+=
+java:S1125"'Remove the unnecessary boolean literal.(ô÷ÎÛ

@@ -1,53 +1,51 @@
 package com.leetcode.practice;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 
 class Solution {
-    public List<String> findAndReplacePattern(String[] words, String pattern) {
+    public static final int MAX_VALUE = 2147483647;
+    public void heeh(Integer... k){
+        Arrays.stream(k).sequential().min().get();
+    }
+    public int minCost(int[] nums, int k) {
+        heeh(2,3,3,3,3,3);
+        int SIZE = nums.length;
+        Function<Integer, String> func= x-> String.valueOf((x*10));
+        func.andThen(x->x+"jskdks");
 
-        final int LENGTH = pattern.length();
-        List<String> ans = new ArrayList<>(); //ans initlization
-        Map<Character, Integer> patternMap = new HashMap<>();
-        for(int i=0;i<LENGTH;i++)
-        {
-            patternMap.merge(pattern.charAt(i), i, Integer::sum);
+        HashMap<Integer, Integer> frequesncy = new HashMap<>();
+        for (Integer num : nums) {
+            frequesncy.put(i, frequesncy.getOrDefault(i, 0) + 1);
         }
 
-        for(String word: words)
-        {
-            Map<Character, Integer> wordMap = new HashMap<>();
-            for(int i=0; i<LENGTH;i++)
-            {
-                wordMap.merge(word.charAt(i), i, Integer::sum);
+
+        int[] dp = new int[SIZE];
+        for (int len = 1; len <= SIZE; len++) {
+            int BABAYAGA = k;
+
+            for (Map.Entry<Integer, Integer> entry : frequesncy.entrySet()) {
+                if (entry.getValue() > 1) {
+                    BABAYAGA += entry.getValue();
+                }
             }
-            if(isGood(patternMap, wordMap, word, pattern, LENGTH))
-                ans.add(word);
+            for (int i = 0; i + len <= SIZE; i++) {
+                int j = i + len - 1;
+                if (len == 1) {
+                    dp[i] = 0;
+
+
+                } else {
+                    dp[i] = MAX_VALUE
+                    for (int D = i; D < j; D++) {
+                        dp[i] = Math.min(dp[i], dp[i] + dp[D + 1] + BABAYAGA);
+                    }
+                }
+            }
         }
-        return ans;
+        return dp[0];
     }
 
-    private boolean isGood(Map<Character, Integer> patternMap, Map<Character, Integer> wordMap, String word, String pattern, int length) {
-        if(patternMap.size()!=wordMap.size())
-            return false;
-        for(int i=0;i<length;i++)
-        {
-            if( (int)patternMap.get(pattern.charAt(i))!= (int) wordMap.get(word.charAt(i)))
-                return false;
-        }
-        return true;
-    }
-
-
-    public static void main(String[] args) {
-        String [] words = {"abc","deq","mee","aqq","dkd","ccc" };
-        String pattern = "abb";
-
-//        String [] words = { "ktittgzawn","dgphvfjniv","gceqobzmis",
-//                "alrztxdlah","jijuevoioe","mawiizpkub","onwpmnujos",
-//                "zszkptjgzj","zwfvzhrucv","isyaphcszn" };
-//        String pattern = "zdqmjnczma";
-        Solution s = new Solution();
-        System.out.println(s.findAndReplacePattern(words, pattern));
-    }
 }
