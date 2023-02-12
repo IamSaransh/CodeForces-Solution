@@ -1,7 +1,5 @@
 package com;
 
-import javafx.util.Pair;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.io.BufferedReader;
 import java.io.IOException;

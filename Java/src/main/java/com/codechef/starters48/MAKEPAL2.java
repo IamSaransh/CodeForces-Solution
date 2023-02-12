@@ -1,6 +1,5 @@
 package com.codechef.starters48;
 
-import com.sun.xml.internal.ws.addressing.mode.ActionNotSupportedException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

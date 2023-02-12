@@ -1,51 +1,50 @@
 package com.leetcode.practice;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
-    public static final int MAX_VALUE = 2147483647;
-    public void heeh(Integer... k){
-        Arrays.stream(k).sequential().min().get();
-    }
-    public int minCost(int[] nums, int k) {
-        heeh(2,3,3,3,3,3);
-        int SIZE = nums.length;
-        Function<Integer, String> func= x-> String.valueOf((x*10));
-        func.andThen(x->x+"jskdks");
-
-        HashMap<Integer, Integer> frequesncy = new HashMap<>();
-        for (Integer num : nums) {
-            frequesncy.put(i, frequesncy.getOrDefault(i, 0) + 1);
-        }
-
-
-        int[] dp = new int[SIZE];
-        for (int len = 1; len <= SIZE; len++) {
-            int BABAYAGA = k;
-
-            for (Map.Entry<Integer, Integer> entry : frequesncy.entrySet()) {
-                if (entry.getValue() > 1) {
-                    BABAYAGA += entry.getValue();
-                }
-            }
-            for (int i = 0; i + len <= SIZE; i++) {
-                int j = i + len - 1;
-                if (len == 1) {
-                    dp[i] = 0;
-
-
-                } else {
-                    dp[i] = MAX_VALUE
-                    for (int D = i; D < j; D++) {
-                        dp[i] = Math.min(dp[i], dp[i] + dp[D + 1] + BABAYAGA);
-                    }
-                }
-            }
-        }
-        return dp[0];
+    private double calcDistanceFromOrigin(int x, int y) {
+        double squaredSum = Math.pow(x, 2) + Math.pow(y, 2);
+        return Math.sqrt(squaredSum);
     }
 
+    public int[][] kClosest(int[][] points, int k) {
+        Queue<Point> pq = new PriorityQueue<>();
+        //build heap
+        for (int[] point : points) {
+            int x = point[0], y = point[1];
+            double dist = calcDistanceFromOrigin(x, y);
+            pq.add(new Point(x, y, dist));
+        }
+        //poll and fill next k elements in the answer
+        int[][] ans = new int[k][2];
+        for (int i = 0; i < k && !pq.isEmpty(); i++) {
+            Point polledPoint = pq.poll();
+            ans[i][0] = polledPoint.x;
+            ans[i][1] = polledPoint.y;
+        }
+        return ans;
+
+
+    }
+
+    static class Point implements Comparable<Point> {
+        private int x;
+        private int y;
+        private double dist;
+
+        public Point(int x, int y, double dist) {
+            this.x = x;
+            this.y = y;
+            this.dist = dist;
+        }
+
+        @Override
+        public int compareTo(Point that) {
+            if (this.dist > that.dist) return 1;
+            if (this.dist < that.dist) return -1;
+            else return 0;
+        }
+    }
 }

@@ -1,5 +1,4 @@
-package com.codechef.starters49;
-
+package com.codeforces.practice.c2oj1200;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class HIGHFREQ {
+public class AND0SumBig1514B {
 
 
     public static void main(String[] args) {
@@ -15,29 +14,14 @@ public class HIGHFREQ {
         PrintWriter out = new PrintWriter(System.out);
         int TT = fs.nextInt();
         while (TT-- > 0) {
-            int n  = fs.nextInt();
-            int[] arr = fs.readArray(n);
-            int max1 = -1;
-            Integer max2 = -1;
-            Map<Integer, Integer> map = new HashMap<>();
-            for(int a: arr)
-                map.merge(a,1, Integer::sum);
-            Queue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
-            for(int x: map.values())
-                priorityQueue.add(x);
-            if(priorityQueue.size()==1)
-            {
-                out.println((int) Math.ceil((priorityQueue.poll() * 1.0)/2));
-            }
-            else{
-                max2 = priorityQueue.poll();
-                max1 = priorityQueue.poll();
-                max2 = (int) Math.ceil((max2 * 1.0)/2);
-                out.println(Math.max(max2, max1));
-            }
-
-
-
+            int n, k;
+            n=fs.nextInt();
+            k=fs.nextInt();
+            long ans = 1;
+           for(int i=0;i<k;i++){
+               ans= (ans * n )%mod;
+           }
+           out.println(ans);
         }
 
         out.close();
