@@ -1,35 +1,49 @@
 #include<bits/stdc++.h>
 #include<iostream>
 using namespace std;
-void moveToBuket(vector<pair<int,int>>& bucket_and_milk, int from, int to){
-   
-}
+// /https://usaco.org/index.php?page=viewproblem2&cpid=568
 
 int main() {
 // #ifndef ONLINE_JUDGE
-	freopen("cowsignal.in", "r", stdin);
-	freopen("cowsignal.out", "w", stdout);
+	freopen("speeding.in", "r", stdin);
+	freopen("speeding.out", "w", stdout);
 // #endif
-    int row, col, k;
-	cin>>row>>col>>k;
+    int limit_seg, speed_seg;
+	cin>>limit_seg>>speed_seg;
     //create a vector for input shape
-    vector<vector<char>> grid(row, vector<char>(col, 0)) ;
-    for(int i=0;i<row;i++){
-        for(int j = 0; j<col; j++){
-            cin>>grid[i][j];
+    vector<int> limitArr (100,0);
+    int start = 0;
+    for(int i=0; i<limit_seg;i++){
+        int tillKm, limit;
+        cin>>tillKm>>limit;
+        for(int j=start;j<start+tillKm; j++){
+            limitArr[j]= limit;
         }
-    }            
-    for(int i=0;i<row;i++){
-        for(int b=0;b<k;b++){   
-            for(int j = 0; j<col; j++){
-                for(int a=0;a<k;a++){
-                    cout<<grid[i][j];    
-                }
-            }
-            cout<<endl;
-        }
-        
+        start+=tillKm;
     }
-    
+    //for his speed
+
+    vector<int> speedArr (100,0);
+    start = 0;
+    for(int i=0; i<speed_seg;i++){
+        int tillKm, speed;
+        cin>>tillKm>>speed;
+        for(int j=start;j<start+tillKm; j++){
+            speedArr[j]= speed;
+        }
+        start+=tillKm;
+    }
+
+    int maxOverspeed=0;
+
+   for(int i=0; i<100;i++)
+   {
+    if(speedArr[i]>limitArr[i])
+    {
+        maxOverspeed = max(maxOverspeed, speedArr[i]-limitArr[i]);
+    }
+   }
+   cout<<maxOverspeed<<endl;
+
 
 }
