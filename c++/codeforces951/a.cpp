@@ -44,13 +44,7 @@ vi readVector(int n){
     }
     return arr;
 }
-unordered_set<ll> makeSet(vii& arr){
-    unordered_set<ll> temp;
-    for(auto val: arr){
-        temp.insert(val);
-    }
-    return temp;
-}
+
 vii readLongVector(int n){
     vector<ll> arr(n);
     lp(i,0, n){
@@ -58,12 +52,33 @@ vii readLongVector(int n){
     }
     return arr;
 }
+unordered_set<ll> makeSet(vii& arr){
+    unordered_set<ll> temp;
+    for(auto val: arr){
+        temp.insert(val);
+    }
+    return temp;
+}
 int main(){
     #ifndef ONLINE_JUDGE 
         freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\input.in", "r", stdin);
 	    freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\output.out", "w", stdout);
     #endif
-    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        vi arr = readVector(n);
+        int mini = INT_MAX;
+        lp(i,0,n-1)
+        {
+            int currMin = max(arr[i], arr[i+1]);
+            mini = min(mini, currMin);
+        }
+        print(mini-1);
+    }
 
 
 

@@ -44,26 +44,52 @@ vi readVector(int n){
     }
     return arr;
 }
-unordered_set<ll> makeSet(vii& arr){
-    unordered_set<ll> temp;
-    for(auto val: arr){
-        temp.insert(val);
+int getStartIndex(vector<int>& arr, int val){
+    int i=0;
+    lp(i,0,arr.size()){
+        if(arr[i]==val)
+            return i;
     }
-    return temp;
+    return -1;
+
 }
-vii readLongVector(int n){
-    vector<ll> arr(n);
-    lp(i,0, n){
-        cin>>arr[i];
+int getEndIndex(vector<int>& arr, int val){
+    int i=0;
+    for(int i=arr.size()-1; i>=0;i--){
+        if(arr[i]==val)
+            return i;
     }
-    return arr;
+    return -1;
 }
+
 int main(){
     #ifndef ONLINE_JUDGE 
         freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\input.in", "r", stdin);
 	    freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\output.out", "w", stdout);
     #endif
-    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,f,k;
+        cin>>n>>f>>k;
+        vi arr = readVector(n);
+        int fav = arr[f-1];
+        sort(arr.begin(), arr.end(), std::greater<int>());
+        int startIdz = getStartIndex(arr, fav);
+        int endIdx = getEndIndex(arr, fav);
+        k--;//0 based indexing 
+        if(startIdz<=k && endIdx<=k){
+            print("YES");
+        }
+        else if(startIdz>k && endIdx>k) {
+            print("NO")
+        } 
+        else{
+            print("MAYBE");
+        }
+
+    }
 
 
 

@@ -65,13 +65,15 @@ int main(){
         print("-1");
     }
     else{
-        //check till which point do we need to go so thhat we encounter the value peresent at the kth pos
-        int kth_pos = arr[k-1];
-        int count = 0;
-        while(arr[count]!=kth_pos){
-            count++;
-        }
-        print(count);       
+        //jabtak aapko kth position se peeche same value milte jye minus krte jao iterator ko
+        int itr = k-1;
+        while(arr[itr]==arr[k-1]){
+            itr--;
+        }    
+        //itr at the place where the condition fails
+        //eg  1, 2, 3, 1, 1, 1k, 1111111111111111 itr will be at 3 wwhen stop
+        //so answer dalo at itr+1 as 0 indexing and we need to return number of eelements removed
+        print(itr+1);
     }
 
 

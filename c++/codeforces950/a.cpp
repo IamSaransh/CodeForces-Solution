@@ -44,26 +44,35 @@ vi readVector(int n){
     }
     return arr;
 }
-unordered_set<ll> makeSet(vii& arr){
-    unordered_set<ll> temp;
-    for(auto val: arr){
-        temp.insert(val);
-    }
-    return temp;
-}
-vii readLongVector(int n){
-    vector<ll> arr(n);
-    lp(i,0, n){
-        cin>>arr[i];
-    }
-    return arr;
-}
+
 int main(){
     #ifndef ONLINE_JUDGE 
         freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\input.in", "r", stdin);
 	    freopen("C:\\Workspace\\CodeForces-Solution\\c++\\StriversCpSheep\\Implementation\\output.out", "w", stdout);
     #endif
-    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,m;
+        cin>>n>>m;
+        string s;
+        cin>>s;
+        map<char, int> hash;
+        lp(i,0, s.length()){
+            hash[s[i]]++;
+
+        }
+        int ans = 0;
+        string ref = "ABCDEFG";
+        lp(i,0,ref.length()){
+            char key = ref[i];
+            if(hash[key] < m){
+                ans+=abs(m-hash[key]);
+            }
+        }
+        print(ans);
+    }
 
 
 
