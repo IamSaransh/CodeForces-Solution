@@ -86,87 +86,41 @@ void printArray(const vector<int>& arr) {
     cout << endl; // Print a newline at the end
 } 
 /*--------------------------------------------------------------------------------------------------------------------------*/
-
-// Precompute factorials up to 20 (since 20! fits in long long)
-vector<long long> factorial(21, 1);
-void precomputeFactorials() {
-    for (int i = 2; i <= 20; ++i) {
-        factorial[i] = factorial[i - 1] * i;
-    }
-}
-
-// Function to calculate S(p) for a given permutation p
-long long calculate_S(const vector<int>& p) {
-    int n = p.size();
-    long long result = 0;
-    
-    // Calculate the previous smaller element for each index
-    vector<int> prev_smaller(n, -1);
-    stack<int> st;
-    for (int i = 0; i < n; ++i) {
-        while (!st.empty() && p[st.top()] >= p[i]) {
-            st.pop();
-        }
-        if (!st.empty()) {
-            prev_smaller[i] = st.top();
-        }
-        st.push(i);
-    }
-
-    // Calculate the next smaller element for each index
-    vector<int> next_smaller(n, n);
-    while (!st.empty()) st.pop();
-    for (int i = n - 1; i >= 0; --i) {
-        while (!st.empty() && p[st.top()] > p[i]) {
-            st.pop();
-        }
-        if (!st.empty()) {
-            next_smaller[i] = st.top();
-        }
-        st.push(i);
-    }
-
-    // Now calculate the contribution of each element to S(p)
-    for (int i = 0; i < n; ++i) {
-        // Calculate how many subarrays in which p[i] is the minimum
-        long long left_count = i - prev_smaller[i];
-        long long right_count = next_smaller[i] - i;
-        result += p[i] * left_count * right_count;
-    }
-    
-    return result;
-}
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 void solve() {
-    ll n;
-    cin>>n;
-    ll a,b,c;
-    cin>>a>>b>>c;
+    int n,m;
+    cin>>n>>m;
+    vector<int> arr; 
+    readArray(arr, n);
+    int M; cin>>M;
 
-    ll curr = 0;
-    ll day = 0;
-    ll sum = a+b+c;
-    if(n>=sum){
-        day+= 3*(n/sum);
-        n = n%sum;
+    vector<int> diff;
+    for(int i=0;i<n;++i){
+        int d = M-arr[i];
+        diff.push_back(d);
     }
-    while(curr<n){
-        if(day%3==0){
-            curr+=a;
+    bool possible = true;
+    //check if we can make it sorted??
+    for(int i=0;i<n-1;++i){
+        if(arr[i]<=arr[i+1])
+            continue;
+        else{
+            arr[i] = diff[i];
         }
-        if(day%3==1){
-            curr+=b;
-        }
-        if(day%3==2){
-            curr+=c;
-        }
-        day++;
     }
-    print(day);
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < arr[i - 1]) {
+            cout << "NO\n";
+            return;
+        }
+    }
+    cout << "YES\n";
     
     
+
 }
 
 
@@ -177,7 +131,6 @@ int main() {
     freopen("C:\\workspace\\Coding\\CodeForces-Solution\\Template\\input.in", "r", stdin);
     freopen("C:\\workspace\\Coding\\CodeForces-Solution\\Template\\output.out", "w", stdout);
 #endif
-    precomputeFactorials(); // one based indexing
     fastio();
     auto start1 = high_resolution_clock::now();
     ll tc ;

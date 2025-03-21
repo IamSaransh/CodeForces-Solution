@@ -21,10 +21,9 @@ using namespace __gnu_pbds;
 #define PI 3.141592653589793238462
 #define set_bits __builtin_popcountll
 #define sz(x) ((int)(x).size())
-#define all(x) (x).begin(), (x).end()
-#define lp(i,n) for(int i =0; i<n; i++) 
 #define print(x) cout<<x<<endl;
-
+#define lp(i,a,b) for (long long int i = (a); i < (b); ++i)
+#define all(x) x.begin(),x.end()
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x<<" "; _print(x); cerr << endl;
 #else
@@ -75,71 +74,74 @@ ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) %
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n /= 2;} for (ll i = 3; i <= sqrt(n); i += 2) {if (n % i == 0) {while (n % i == 0)n /= i; number = (number / i * (i - 1));}} if (n > 1)number = (number / n * (n - 1)) ; return number;} //O(sqrt(N))
 ll getRandomNumber(ll l, ll r) {return uniform_int_distribution<ll>(l, r)(rng);}
-// Function to print array elements in a single line, separated by spaces
-void printArray(const vector<int>& arr) {
-    for (int i = 0; i < arr.size(); ++i) {
-        cout << arr[i];
-        if (i < arr.size() - 1) {
-            cout << " "; // Print space between elements, except after the last element
-        }
+typedef vector<int> vi;
+typedef vector<pair<int,int>> vip;
+typedef vector<double> vd;
+typedef vector<long long int> vii;
+typedef vector<long double> vdd;
+ 
+ 
+void read2DArray(vector<vector<int>>& arr){
+            int row = arr.size();
+            int col = arr[0].size();
+            for(int i=0; i< row; i++){
+                for(int j=0; j< col;j++){
+                     cin>>arr[i][j];
+                }
+            }
+}
+void readVector(vi& arr){
+    lp(i,0, arr.size()){
+        cin>>arr[i];
     }
-    cout << endl; // Print a newline at the end
-} 
+}
+void readVector(vi& arr, int n){
+    lp(i,0, n){
+        cin>>arr[i];
+    }
+}
+vi readVector(int n){
+    vector<int> arr(n);
+    lp(i,0, n){
+        cin>>arr[i];
+    }
+    return arr;
+}
+unordered_set<ll> makeSet(vii& arr){
+    unordered_set<ll> temp;
+    for(auto val: arr){
+        temp.insert(val);
+    }
+    return temp;
+}
+vii readLongVector(int n){
+    vector<ll> arr(n);
+    lp(i,0, n){
+        cin>>arr[i];
+    }
+    return arr;
+}
+//////////////////////////////////////////////////////////////////////////////
+
+
 /*--------------------------------------------------------------------------------------------------------------------------*/
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-// Precompute factorials up to 20 (since 20! fits in long long)
-vector<long long> factorial(21, 1);
-void precomputeFactorials() {
-    for (int i = 2; i <= 20; ++i) {
-        factorial[i] = factorial[i - 1] * i;
-    }
+
+ll ncr(ll n){
+    return (n* (n-1))/2;
 }
 
-// Function to calculate S(p) for a given permutation p
-long long calculate_S(const vector<int>& p) {
-    int n = p.size();
-    long long result = 0;
-    
-    // Calculate the previous smaller element for each index
-    vector<int> prev_smaller(n, -1);
-    stack<int> st;
-    for (int i = 0; i < n; ++i) {
-        while (!st.empty() && p[st.top()] >= p[i]) {
-            st.pop();
-        }
-        if (!st.empty()) {
-            prev_smaller[i] = st.top();
-        }
-        st.push(i);
-    }
-
-    // Calculate the next smaller element for each index
-    vector<int> next_smaller(n, n);
-    while (!st.empty()) st.pop();
-    for (int i = n - 1; i >= 0; --i) {
-        while (!st.empty() && p[st.top()] > p[i]) {
-            st.pop();
-        }
-        if (!st.empty()) {
-            next_smaller[i] = st.top();
-        }
-        st.push(i);
-    }
-
-    // Now calculate the contribution of each element to S(p)
-    for (int i = 0; i < n; ++i) {
-        // Calculate how many subarrays in which p[i] is the minimum
-        long long left_count = i - prev_smaller[i];
-        long long right_count = next_smaller[i] - i;
-        result += p[i] * left_count * right_count;
-    }
-    
-    return result;
+void solve(){
+    int a, b;
+    cin>>a>>b;
+    int x = a|b;
+    int ans = (a^x) + (b^x);
+    print(ans);
 }
 
-void solve() {
-    
-}
+
 
 
 
@@ -149,10 +151,9 @@ int main() {
     freopen("C:\\workspace\\Coding\\CodeForces-Solution\\Template\\input.in", "r", stdin);
     freopen("C:\\workspace\\Coding\\CodeForces-Solution\\Template\\output.out", "w", stdout);
 #endif
-    precomputeFactorials(); // one based indexing
     fastio();
     auto start1 = high_resolution_clock::now();
-    ll tc ;
+    ll tc =1;
     cin>>tc;
     while(tc--){
         solve();
@@ -161,5 +162,6 @@ int main() {
     auto duration = duration_cast<microseconds>(stop1 - start1);
 #ifndef ONLINE_JUDGE
     cerr << "Time: " << duration . count() / 1000 << endl;
+    cerr << "Time ms: " << duration . count() << endl;
 #endif
 }
