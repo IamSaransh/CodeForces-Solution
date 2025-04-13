@@ -1,4 +1,4 @@
-// #pragma GCC optimize("O3,unroll-loops")
+#pragma GCC optimize("O3,unroll-loops")
 
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -128,50 +128,41 @@ vii readLongVector(int n){
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-bool check(int x, vector<int> &arr, int k) {
-    int subarrays = 0;
-    int n = arr.size();
-    set<int> s;
-    for (int i = 0; i < n; ++i) {
-        if (arr[i] < x) {
-            s.insert(arr[i]);
-            if ((int)s.size() == x) {
-                // We have all elements from 0 to x-1
-                subarrays++;
-                s.clear();
-            }
-        }
-    }
-    return subarrays >= k;
+bool is_already_good(string s) {
+    string rev_s = s;
+    reverse(rev_s.begin(), rev_s.end());
+    return s < rev_s;
 }
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> arr(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> arr[i];
+    int n,k;
+    string str;
+    cin>>n>>k>>str;
+
+    set<char> unique;
+    for(char s: str){
+        unique.insert(s);
+    }
+   // If already universal, print YES
+   if (is_already_good(str)) {
+    cout << "YES" << endl;
+    return;
     }
 
-    int start = 0;
-    int end = *max_element(arr.begin(), arr.end()) + 1;
-    int ans = 0;
-    if(end==1 ) {
-        print(1);
+    // Edge case: If all characters are the same, it's impossible to make it universal
+    set<char> unique_chars(str.begin(), str.end());
+    if (unique_chars.size() == 1) {
+        cout << "NO" << endl;
         return;
     }
 
-    while (start <= end) {
-        int mid = (start + end) / 2;
-        if (check(mid, arr, k)) {
-            ans = mid; // Update answer if current mid is valid
-            start = mid + 1; // Try for a larger MEX
-        } else {
-            end = mid - 1; // Try for a smaller MEX
-        }
+    // If at least one swap is allowed, we can make it universal
+    if (k >= 1) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
     }
-
-    cout << ans << endl;
+        
 }
 
 

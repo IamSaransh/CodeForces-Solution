@@ -5,102 +5,47 @@
 #include<ext/pb_ds/tree_policy.hpp>
 
 using namespace std;
-class TrieNode {
-    public:
-        unordered_map<char, TrieNode*> children;
-        int count;  // Number of words passing through this node
-    
-        TrieNode() : count(0) {}
-    };
-    
-    class Trie {
-    public:
-        TrieNode* root;
-    
-        Trie() {
-            root = new TrieNode();
-        }
-    
-        // Insert a word into the Trie
-        void insert(const string& word) {
-            TrieNode* node = root;
-            node->count++;  // Update root count
-            for (char c : word) {
-                if (!node->children.count(c)) {
-                    node->children[c] = new TrieNode();
-                }
-                node = node->children[c];
-                node->count++;  // Increase count for each character node
-            }
-        }
-    
-        // Remove a word from the Trie
-        void remove(const string& word) {
-            TrieNode* node = root;
-            node->count--;  // Decrease root count
-            for (char c : word) {
-                if (node->children.count(c)) {
-                    node = node->children[c];
-                    node->count--;  // Decrease count for each character node
-                }
-            }
-        }
-    
-        int getLCP(int k) {
-            TrieNode* node = root;
-            int length = 0;
-        
-            while (node) {  
-                if (node->count < k) break;  // Ensure at least `k` words pass through
-                
-                TrieNode* nextNode = nullptr;
-                for (auto& [ch, child] : node->children) {  
-                    if (child->count >= k) {  // Choose the child where at least `k` words pass
-                        nextNode = child;
-                        length++;  // Increase LCP length
-                        break;     // Continue down this path
-                    }
-                }
-        
-                if (!nextNode) break;  // Stop if no valid child is found
-                node = nextNode;
-            }
-            
-            return length;
-        }
-    };
-    
+
     class Solution {
     public:
-        vector<int> longestCommonPrefix(vector<string>& words, int k) {
-            int n = words.size();
-            vector<int> result(n, 0);
-            if (k > n) return result;  // If k > n, no valid LCP possible
-    
-            Trie trie;
-    
-            // Insert all words into the Trie
-            for (const string& word : words) {
-                trie.insert(word);
+    long long maximumTripletValue(vector<int>& nums) {
+        int n = nums.size();
+        if(n<3) return 0;
+        // we have an array greater than 3
+        int ni = nums[0], nj = nums[1], nk = nums[2];
+        for(int i=3;i<n;++i){
+            int curr = nums[i];
+            //the curr can be used for the value nk only, 
+            //check if it makes sense to update the nk, we want to maximize it
+            int prev=0;
+            if(curr>=nk){
+                prev = nk;
+                nk = curr;
             }
-    
-            // Process each word removal and compute LCP
-            for (int i = 0; i < n; ++i) {
-                trie.remove(words[i]);  // Remove current word
-                if (n - 1 >= k) {  // Ensure we still have at least k words
-                    result[i] = trie.getLCP(k);
-                }
-                trie.insert(words[i]);  // Re-insert the word back
+            if(prev==0) 
+                prev = INT_MAX;
+            //check if the prev could be the new nj, which we want to minimize?
+            if(nj>=prev){
+                int prev_nj = nj;
+                nj = prev;
+                prev = prev_nj;
             }
-    
-            return result;
+            //now check if the ni can be maximized?
+            //what values can be used for ni? either prev1 or prev2?
+            if(prev>=ni){
+                ni = prev;
+            }
+
         }
+        long long ans =  1LL * (ni-nj)* nk;
+        cout<<ni<<" "<<nj<<" "<<nk<<endl;
+        if(ans >=0) return ans; else return 0;
+    }
     };
     
 int main()
 {
     Solution s ;
-    vector<string> words = {"jump","run","run","jump","run"};
-    vector<int> ans  = s.longestCommonPrefix(words, 2);
-    for(auto a: ans) cout<<a<<" ";
+    vector<int> nums = {5,7,8,4};
+    int ans  = s.maximumTripletValue(nums);
 }
